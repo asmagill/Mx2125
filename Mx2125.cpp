@@ -10,11 +10,10 @@ Mx2125::Mx2125(uint8_t x, uint8_t y, uint8_t t){
 
 /*
  * Measure acceleration in terms of g (acceleration due to earth's gravity).
- * A measurement of +/-1250 corresponds to approximately +/- 1 g.
  *
- * Returns Value that represents 1250ths of a g acting on the
- * axis. 1250ths is a nominal value, the accelerometer is not actually that
- * precise.
+ * Returns value that represents either milli G's or 1250ths of a g acting on
+ * the axis, depending upon whether or not USE_MILLI_G is defined in Mx2125.h --
+ * see README.md for details.
  */
 int16_t   Mx2125::mx_acceleration_x() { return mx_acceleration(xPin); }
 int16_t   Mx2125::mx_acceleration_y() { return mx_acceleration(yPin); }
@@ -47,7 +46,7 @@ float  Mx2125::mx_temperature() {
 //     Analog Pin range 0-5v, 0-1023 value, 4.8828125 mV/unit
 //     Memsic mx2125 calibrated to 1.25v @ 25C, 5 mV/degree C per [3]
 
-  return 25 + ((analogRead(tPin) * 4.8828125) - 1250) / 5;
+  return 25.0 + ((analogRead(tPin) * 4.8828125) - 1250.0) / 5.0;
 }
 
 /* Private methods */
