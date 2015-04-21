@@ -1,13 +1,14 @@
 Memsic MX2125 Dual-axis Accelerometer library for Arduino
 =========================================================
-
-Created by Aaron Magill on 4/20/15.
 Copyright 2015 Aaron Magill, MIT License.
 
-  Inspired by code from the following:
+  Sourced primarily from the following:
+
   [1] http://learn.parallax.com/propeller-c-simple-devices/tilt-and-acceleration-mx2125
       specifically, the contents of mx2125.h and mx2125.c in specified support library.
+
   [2] http://www.arduino.cc/en/Tutorial/Memsic2125?from=Tutorial.AccelerometerMemsic2125
+
   [3] https://www.jameco.com/Jameco/Products/ProdDS/282870.pdf
 
 Note that this is all working on an Arduino UNO... there may be changes necessary for other boards, but I don't know them as I don't have them to test with... As I think I recall reading that some models have a different ADC bit width on their analog pins, especially check `Mx2125::mx_temperature()` in `Mx2125.cpp` for your model.
@@ -25,9 +26,9 @@ Mx2125::mx_acceleration_y()
 ~~~
 Measure acceleration in terms of g (acceleration due to earth's gravity).
 
-Returns Value that represents the milli G's acting on the axis.
+Returns value that represents the milli G's acting on the axis.
 
-Milli G's seems more intuitive to me, so calculations based upon [2] for acceleration are the default.  Comment out #define USE_MILLI_G in Mx2125.h if you wish to use Parallax's formula with a nominal division of 1/1250 G instead.
+Milli G's seems more intuitive to me, so calculations based upon [2] for acceleration are the default.  Comment out `#define USE_MILLI_G` in `Mx2125.h` if you wish to use Parallax's formula with a nominal division of 1/1250 G instead.
 
 ~~~
 Mx2125::mx_tilt_x()
@@ -45,7 +46,7 @@ Returns integer degree value (0 to 359) that represents the clockwise angle of r
 ~~~
 Mx2125::mx_temperature()
 ~~~
-Returns floating point number of the temperature in Celsius as reported by the MX2125 chip.  The formula used is calculated for use with the ADC bit width of an Arduino UNO and will need to be changed if your model is different.  See [3] for details on how T-Out is calibrated.
+Returns floating point number of the temperature in Celsius as reported by the MX2125 chip.  The formula used is calculated for use with the ADC bit width of an Arduino UNO and will need to be changed if your model is different.  See [3] for details on how T-Out is calibrated.  Note that this seems to fluctuate quite a bit, but should give an idea as to the approximate operating temperature... I found very sparse documentation for its use and practically no examples, but for my purposes it is close enough, though I may return to see if I can tweak it later.
 
 ### Example
 
